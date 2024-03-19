@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consultar Venda</title>
+</head>
+
+<body>
+  <h1>Consultar Venda</h1>
+  <label for="saleId">ID da Venda:</label>
+  <input type="text" id="saleId" />
+  <button onclick="consultarVenda()">Consultar Venda</button>
+  <div id="resultado">
+  </div>
+  <script>
+    async function consultarVenda() {
+      const saleId = document.getElementById("saleId").value.trim();
+      if (saleId === "") {
+        alert("Favor inserir ID no campo para consulta");
+        document.getElementById("saleId").focus();
+      } else {
+        try {
+          const response = await fetch(`/vendas/${saleId}`);
+          if (response.status === 404) {
+            document.getElementById("resultado").innerHTML =
+              "<p>Venda não encontrada</p>";
+          } else {
+            const data = await response.json();
+            document.getElementById("resultado").innerHTML = `
+                <h2>Detalhes da Venda</h2>
+                <form>
+                  <label for="saleIdField">ID da Venda:</label>
+                  <input type="text" id="saleIdField" value="${data.venda_id}" disabled><br>
+                  <label for="date">Data da Venda:</label>
+                  <input type="text" id="date" value="${data.data_venda}" disabled><br>
+                  <label for="client">Cliente:</label>
+                  <input type="text" id="client" value="${data.cliente_id}" disabled><br>
+                  <label for="item">Vendedor:</label>
+                  <input type="text" id="id do vendedor" value="${data.vendedor_id}" disabled><br>
+                  <label for="quantity">Categoria:</label>
+                  <input type="text" id="category" value="${data.categoria}" disabled><br>
+                  <label for="price">Preço:</label>
+                  <input type="text" id="valor" value="${data.valor}" disabled><br>
+                </form>`;
+          }
+        } catch (error) {
+          console.error("Erro ao consultar venda:", error);
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

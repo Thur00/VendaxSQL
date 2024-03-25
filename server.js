@@ -8,6 +8,10 @@ const app = express();
 // Define a porta em que o servidor irá escutar
 const port = 3000;
 
+app.use(express.json())
+
+app.use(express.static("public"))
+
 // Configurações de conexão com o banco de dados
 const config = {
   server: "localhost", // Nome do servidor
@@ -79,7 +83,7 @@ app.get("/", (req, res) => {
 // Rota para obter a pagina dos clientes
 app.get("/clientes", async (req, res) => {
   try {
-    res.sendFile(__dirname + "/public/clientes.html"); // Retorna a pagina das clientes
+    res.sendFile(__dirname + "/public/cliente.html"); // Retorna a pagina das clientes
   } catch (err) {
     console.error(err.message);
     res.status(500).send(err.message);
@@ -145,6 +149,33 @@ app.get("/vendas/:id", async (req, res) => {
   try {
     const id = req.params.id; // Obtém o ID da venda da URL
     const query = `SELECT * FROM Vendas WHERE venda_id = ${id};`; // Consulta SQL para selecionar a venda pelo ID
+    const sales = await executeQuery(query); // Executa a consulta SQL e aguarda os resultados
+    if (sales.length === 0) {
+      res.status(404).send("Venda não encontrada");
+    } else {
+      res.json(sales[0]); // Retorna a venda em formato JSON (supondo que apenas uma venda corresponda ao ID)
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
+
+// Rota para obter a pagina da consulta integrada
+app.get("/integrado", async (req, res) => {
+  try {
+    res.sendFile(__dirname + "/public/integrado.html"); // Retorna a pagina da consulta integrada
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
+
+// Rota para obter uma venda pelo ID em formato JSON
+app.get("/integrado/:id", async (req, res) => {
+  try {
+    const id = req.params.id; // Obtém o ID da venda da URL
+    const query = `SELECT * FROM ConsultaIntegrada WHERE IDvenda = ${id};`; // Consulta SQL para selecionar a venda pelo ID
     const sales = await executeQuery(query); // Executa a consulta SQL e aguarda os resultados
     if (sales.length === 0) {
       res.status(404).send("Venda não encontrada");

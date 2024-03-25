@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consultar vendedor</title>
+</head>
+
+<body>
+  <h1>Consultar vendedor com form</h1>
+  <label for="vendId">ID do vendedor:</label>
+  <input type="text" id="vendId" />
+  <button onclick="consultarvendedor()">Consultar vendedor</button>
+  <div id="resultado">
+    <!-- Resultado da consulta será exibido aqui -->
+  </div>
+  <script>
+    async function consultarvendedor() {
+      // Obtém o valor do campo e remove espaços em branco do início e do fim
+      const vendId = document.getElementById("vendId").value.trim();
+      if (vendId === "") {
+        alert("Favor inserir ID no campo para consulta");
+        document.getElementById("vendId").focus(); // Dá foco de volta ao campo de entrada
+      } else {
+        try {
+          const response = await fetch(`/vendedores/${vendId}`); // Faz uma requisição para a rota "/vendas/:id" no servidor
+          if (response.status === 404) {
+            document.getElementById("resultado").innerHTML =
+              "<p>Vendedor não encontrado</p>";
+          } else {
+            const data = await response.json(); // Converte a resposta para JSON
+            document.getElementById("resultado").innerHTML = `
+                <h2>Detalhes do vendedor</h2>
+                <form>
+                  <label for="vendIdField">ID do Vendedor:</label>
+                  <input type="text" id="vendIdField" value="${data.vendedor_id}" disabled><br>
+                  <label for="date">Nome:</label>
+                  <input type="text" id="date" value="${data.nome}" disabled><br>
+                  <label for="client">Região:</label>
+                  <input type="text" id="client" value="${data.regiao}" disabled><br>
+                </form>`;
+          }
+        } catch (error) {
+          console.error("Erro ao consultar vendedor:", error);
+        }
+      }
+    }
+  </script><br>
+  <a href="/"><button>Voltar</button></a>
+</body>
+
+</html>

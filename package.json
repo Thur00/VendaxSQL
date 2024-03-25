@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "express": "^4.18.3",
+    "tedious": "^18.1.0"
+  }
+}

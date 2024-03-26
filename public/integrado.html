@@ -2,33 +2,33 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Consultar Venda</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consultar Venda</title>
 </head>
 
 <body>
-  <h1>Consulta integrada da venda</h1>
-  <label for="saleId">ID da Venda:</label>
-  <input type="text" id="saleId" />
-  <button onclick="consultarVenda()">Consultar Venda</button>
-  <div id="resultado">
-  </div>
-  <script>
-    async function consultarVenda() {
-      const saleId = document.getElementById("saleId").value.trim();
-      if (saleId === "") {
-        alert("Favor inserir ID no campo para consulta");
-        document.getElementById("saleId").focus();
-      } else {
-        try {
-          const response = await fetch(`/integrado/${saleId}`);
-          if (response.status === 404) {
-            document.getElementById("resultado").innerHTML =
-              "<p>Venda não encontrada</p>";
-          } else {
-            const data = await response.json();
-            document.getElementById("resultado").innerHTML = `
+    <h1>Consulta integrada da venda</h1>
+    <label for="saleId">ID da Venda:</label>
+    <input type="text" id="saleId" />
+    <button onclick="consultarVenda()">Consultar Venda</button>
+    <div id="resultado">
+    </div>
+    <script>
+        async function consultarVenda() {
+            const saleId = document.getElementById("saleId").value.trim();
+            if (saleId === "") {
+                alert("Favor inserir ID no campo para consulta");
+                document.getElementById("saleId").focus();
+            } else {
+                try {
+                    const response = await fetch(`/integrado/${saleId}`);
+                    if (response.status === 404) {
+                        document.getElementById("resultado").innerHTML =
+                            "<p>Venda não encontrada</p>";
+                    } else {
+                        const data = await response.json();
+                        document.getElementById("resultado").innerHTML = `
                 <h2>Detalhes da Venda</h2>
                 <form>
                   <label for="saleIdField">ID da Venda:</label>
@@ -46,14 +46,15 @@
                   <label for="price">Idade:</label>
                   <input type="text" id="price" value="${data.idade}" disabled><br>
                 </form>`;
-          }
-        } catch (error) {
-          console.error("Erro ao consultar venda:", error);
+                    }
+                } catch (error) {
+                    console.error("Erro ao consultar venda:", error);
+                }
+            }
         }
-      }
-    }
-  </script><br>
-  <a href="/"><button>Voltar</button></a>
+    </script>
+    <br>
+    <a href="/"><button>Voltar</button></a>
 </body>
 
 </html>

@@ -1,8 +1,33 @@
 * {
     font-family: sans-serif;
+    color: black;
 }
 
-a{
+body {
+    background-color: bisque;
+}
+
+.box {
+    margin: 5% auto 0;
+    width: 40%;
+    height: 50vh;
+    background-color:#fecf94;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+li, a {
     text-decoration: none;
-    color: black;
+    font-size: 1.4rem;
+}
+
+li:hover, a:hover {
+    color:#83623a;
 }

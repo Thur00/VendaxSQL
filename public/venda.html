@@ -5,14 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Consultar Venda</title>
+  <link rel="stylesheet" type="text/css" href="/paginas.css">
 </head>
 
 <body>
-  <h1>Consultar Venda</h1>
-  <label for="saleId">ID da Venda:</label>
-  <input type="text" id="saleId" />
-  <button onclick="consultarVenda()">Consultar Venda</button>
-  <div id="resultado">
+  <div class="box">
+    <h1>Consultar Venda</h1>
+    <label for="saleId">ID da Venda:</label>
+    <input type="text" id="saleId" />
+    <button onclick="consultarVenda()">Consultar Venda</button>
+    <div id="resultado">
+    </div>
   </div>
   <script>
     async function consultarVenda() {

@@ -5,15 +5,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Consultar vendedor</title>
+  <link rel="stylesheet" type="text/css" href="/paginas.css">
 </head>
 
 <body>
-  <h1>Consultar vendedor com form</h1>
-  <label for="vendId">ID do vendedor:</label>
-  <input type="text" id="vendId" />
-  <button onclick="consultarvendedor()">Consultar vendedor</button>
-  <div id="resultado">
-    <!-- Resultado da consulta será exibido aqui -->
+  <div class="box">
+    <h1>Consultar vendedor</h1>
+    <label for="vendId">ID do vendedor:</label>
+    <input type="text" id="vendId" />
+    <button onclick="consultarvendedor()">Consultar vendedor</button>
+    <div id="resultado">
+      <!-- Resultado da consulta será exibido aqui -->
+    </div>
   </div>
   <script>
     async function consultarvendedor() {
